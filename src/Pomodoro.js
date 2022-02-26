@@ -1,5 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
-import { BsPlayCircle, BsPauseCircle, BsChevronBarRight, BsArrowCounterclockwise } from "react-icons/bs";
+import {
+  BsPlayCircle,
+  BsPauseCircle,
+  BsChevronBarRight,
+  BsArrowCounterclockwise,
+  BsFillGearFill,
+} from "react-icons/bs";
 
 export default function Pomodoro() {
   const counter_init_vals = {
@@ -105,14 +111,33 @@ export default function Pomodoro() {
       </div>
 
       <div className="timer-controls">
-        <button className="control-button" onClick={resetTimer}><BsArrowCounterclockwise className="button-icon"/></button>
+        <button className="control-button" onClick={resetTimer}>
+          <BsArrowCounterclockwise className="button-icon" />
+        </button>
         {timerRunning ? (
-          <button className="control-button control-button-main" onClick={stopTimer}><BsPauseCircle className="button-icon"/></button>
+          <button
+            className="control-button control-button-main"
+            onClick={stopTimer}
+          >
+            <BsPauseCircle className="button-icon" />
+          </button>
         ) : (
-          <button className="control-button control-button-main" onClick={startTimer}><BsPlayCircle className="button-icon"/></button>
+          <button
+            className="control-button control-button-main"
+            onClick={startTimer}
+          >
+            <BsPlayCircle className="button-icon" />
+          </button>
         )}
-        <button className="control-button" onClick={nextSession}><BsChevronBarRight className="button-icon"/></button>
-        
+        <button className="control-button" onClick={nextSession}>
+          <BsChevronBarRight className="button-icon" />
+        </button>
+      </div>
+
+      <div className="toolbar-tray">
+        <button className="control-button settings-button">
+          <BsFillGearFill className="button-icon"/>
+        </button>
       </div>
     </>
   );

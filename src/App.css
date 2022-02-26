@@ -39,6 +39,7 @@ body {
   border-radius: 50%;
   border: none;
   cursor: pointer;
+  color: #4a4a4a;
   background-color: white;
 }
 
@@ -52,12 +53,28 @@ body {
 }
 
 .control-button:active {
-  margin-top:5px;
+  margin-top: 5px;
   margin-bottom: 7px;
   background-color: #d6d6d6;
+}
+
+.settings-button {
+  height: 30px;
+  width: 30px;
+  color: #878787;
+}
+
+.settings-button:hover {
+  color: #525252;
 }
 
 .button-icon {
   height: 100%;
   width: 100%;
+}
+
+.toolbar-tray {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
