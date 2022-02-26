@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect } from "react";
+import { BsPlayCircle, BsPauseCircle, BsChevronBarRight, BsArrowCounterclockwise } from "react-icons/bs";
 
 export default function Pomodoro() {
   const counter_init_vals = {
-    "focus": 25,
-    "break": 5,
-    "long-break": 15,
+    focus: 5,
+    break: 2,
+    longbreak: 3,
   };
 
   const [counter, setCounter] = useState(counter_init_vals["focus"]);
@@ -52,6 +53,7 @@ export default function Pomodoro() {
   const resetTimer = () => {
     stopTimer();
     setTimerMode("focus");
+    setCurrentSession(1);
     setCounter(counter_init_vals["focus"]);
   };
 
@@ -59,13 +61,16 @@ export default function Pomodoro() {
     setTimerMode((m) => {
       if (m === "focus") {
         if (currentSession === totalSessions) {
-          setCurrentSession(1);
-          return "long-break";
+          return "longbreak";
         } else {
           return "break";
         }
       } else {
-        setCurrentSession(prev => prev + 1)
+        if (m === "break") {
+          setCurrentSession(currentSession + 1);
+        } else {
+          setCurrentSession(1);
+        }
         return "focus";
       }
     });
@@ -83,9 +88,11 @@ export default function Pomodoro() {
 
   useEffect(() => {
     if (counter === 0) {
-      nextSession();
+      setTimeout(() => {
+        nextSession();
+      }, 1000);
     }
-  }, [counter])
+  }, [counter]);
 
   return (
     <>
@@ -94,16 +101,18 @@ export default function Pomodoro() {
           {getMinutes(counter)}:{getSeconds(counter)}
         </p>
         <p className="timer-mode-display">{timerMode}</p>
+        {currentSession}/{totalSessions}
       </div>
 
       <div className="timer-controls">
-        <button onClick={resetTimer}>Reset</button>
+        <button className="control-button" onClick={resetTimer}><BsArrowCounterclockwise className="button-icon"/></button>
         {timerRunning ? (
-          <button onClick={stopTimer}>Stop</button>
+          <button className="control-button control-button-main" onClick={stopTimer}><BsPauseCircle className="button-icon"/></button>
         ) : (
-          <button onClick={startTimer}>Start</button>
+          <button className="control-button control-button-main" onClick={startTimer}><BsPlayCircle className="button-icon"/></button>
         )}
-        <button onClick={nextSession}>Next</button>
+        <button className="control-button" onClick={nextSession}><BsChevronBarRight className="button-icon"/></button>
+        
       </div>
     </>
   );

@@ -26,6 +26,38 @@ body {
   bottom: 0px;
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 10px;
-  margin: 0px;
+  margin: auto;
+}
+
+.control-button {
+  height: 40px;
+  width: 40px;
+  margin: 6px;
+  position: relative;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+}
+
+.control-button-main {
+  height: 60px;
+  width: 60px;
+}
+
+.control-button:hover {
+  background-color: #e7e7e7;
+}
+
+.control-button:active {
+  margin-top:5px;
+  margin-bottom: 7px;
+  background-color: #d6d6d6;
+}
+
+.button-icon {
+  height: 100%;
+  width: 100%;
 }
