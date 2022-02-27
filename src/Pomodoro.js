@@ -6,12 +6,14 @@ import {
   BsArrowCounterclockwise,
   BsFillGearFill,
 } from "react-icons/bs";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 
 export default function Pomodoro() {
   const counter_init_vals = {
-    focus: 5,
-    break: 2,
-    longbreak: 3,
+    focus: 25*60,
+    break: 5*60,
+    longbreak: 15*60,
   };
 
   const [counter, setCounter] = useState(counter_init_vals["focus"]);
@@ -103,11 +105,17 @@ export default function Pomodoro() {
   return (
     <>
       <div className="timer">
-        <p className="timer-display">
-          {getMinutes(counter)}:{getSeconds(counter)}
-        </p>
-        <p className="timer-mode-display">{timerMode}</p>
-        {currentSession}/{totalSessions}
+        <CircularProgressbar
+          value={counter}
+          maxValue={counter_init_vals[timerMode]}
+          text={`${getMinutes(counter)}:${getSeconds(counter)}`}
+          strokeWidth={2}
+          counterClockwise={true}
+          styles={buildStyles({
+            textColor: '#2b2c2c',
+            pathColor: '#5e5e5e',
+          })}
+        />
       </div>
 
       <div className="timer-controls">
@@ -136,7 +144,7 @@ export default function Pomodoro() {
 
       <div className="toolbar-tray">
         <button className="control-button settings-button">
-          <BsFillGearFill className="button-icon"/>
+          <BsFillGearFill className="button-icon" />
         </button>
       </div>
     </>
