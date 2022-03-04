@@ -9,11 +9,13 @@ import {
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
+import SettingsDialog from "./Settings";
+
 export default function Pomodoro() {
   const counter_init_vals = {
-    focus: 25*60,
-    break: 5*60,
-    longbreak: 15*60,
+    focus: 25 * 60,
+    break: 5 * 60,
+    longbreak: 15 * 60,
   };
 
   const [counter, setCounter] = useState(counter_init_vals["focus"]);
@@ -21,6 +23,7 @@ export default function Pomodoro() {
   const [timerMode, setTimerMode] = useState("focus"); // focus | break | long-break
   const [totalSessions, setTotalSessions] = useState(3);
   const [currentSession, setCurrentSession] = useState(1);
+  const [showSettingsDialog, setShowSettingsDialog] = useState(false);
 
   const timer = useRef(null);
   const firstRender = useRef(true);
@@ -112,8 +115,8 @@ export default function Pomodoro() {
           strokeWidth={2}
           counterClockwise={true}
           styles={buildStyles({
-            textColor: '#2b2c2c',
-            pathColor: '#5e5e5e',
+            textColor: "#2b2c2c",
+            pathColor: "#5e5e5e",
           })}
         />
       </div>
@@ -143,10 +146,18 @@ export default function Pomodoro() {
       </div>
 
       <div className="toolbar-tray">
-        <button className="control-button settings-button">
+        <button className="control-button settings-button" onClick={() => setShowSettingsDialog(true)}>
           <BsFillGearFill className="button-icon" />
         </button>
       </div>
+
+      {showSettingsDialog ? (
+        <SettingsDialog
+          closeSettingsDialog={() => {
+            setShowSettingsDialog(false);
+          }}
+        />
+      ) : null}
     </>
   );
 }

@@ -78,3 +78,48 @@ body {
   top: 5px;
   right: 5px;
 }
+
+.dialog-background {
+  background-color: #0000006e;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(2px);
+}
+
+.dialog-card {
+  background: white;
+  padding: 20px;
+  position: fixed;
+  width: 40%;
+  min-width: 200px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px 0px #5e5e5ef2;
+  z-index: 101;
+}
+
+.dialog-heading {
+  font-size: 1.2em;
+}
+
+.input-group {
+  margin: 20px 30px;
+}
+
+input[type="number"] {
+  height: 33px;
+  border-radius: 5px;
+  outline: none;
+  border: 1px solid #b7b7b7;
+  padding: 0px 10px;
+}
+
+.input-label {
+  margin: 0px;
+}
