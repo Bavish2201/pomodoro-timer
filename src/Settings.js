@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import Slider from "@mui/material/Slider";
 
+import { ConfigContext } from "./Config";
+
 export default function SettingsDialog({ closeSettingsDialog }) {
+
+  const [config, setConfig] = useContext(ConfigContext)
+
+  const oldConfig = config;
+
   return (
     <>
       <div className="dialog-background" onClick={closeSettingsDialog}></div>
@@ -14,7 +21,7 @@ export default function SettingsDialog({ closeSettingsDialog }) {
             step={5}
             min={5}
             max={60}
-            defaultValue={25}
+            defaultValue={oldConfig.focus}
             track={false}
             valueLabelDisplay="auto"
             marks={[
@@ -22,6 +29,9 @@ export default function SettingsDialog({ closeSettingsDialog }) {
               { value: 25, label: "25 min" },
               { value: 60, label: "60 min"}
             ]}
+            onChangeCommitted={(e, v) => {
+              setConfig({...config, focus: v});
+            }}
           />
         </div>
 
@@ -31,7 +41,7 @@ export default function SettingsDialog({ closeSettingsDialog }) {
             step={1}
             min={1}
             max={15}
-            defaultValue={5}
+            defaultValue={oldConfig.break}
             track={false}
             valueLabelDisplay="auto"
             marks={[
@@ -39,6 +49,9 @@ export default function SettingsDialog({ closeSettingsDialog }) {
               { value: 5, label: "5 min" },
               { value: 15, label: "15 min"}
             ]}
+            onChangeCommitted={(e, v) => {
+              setConfig({...config, break: v});
+            }}
           />
         </div>
 
@@ -48,7 +61,7 @@ export default function SettingsDialog({ closeSettingsDialog }) {
             step={5}
             min={5}
             max={30}
-            defaultValue={15}
+            defaultValue={oldConfig.longbreak}
             track={false}
             valueLabelDisplay="auto"
             marks={[
@@ -56,6 +69,9 @@ export default function SettingsDialog({ closeSettingsDialog }) {
               { value: 15, label: "15 min" },
               { value: 30, label: "30 min"}
             ]}
+            onChangeCommitted={(e, v) => {
+              setConfig({...config, longbreak: v});
+            }}
           />
         </div>
 

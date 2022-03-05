@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useContext } from "react";
 import {
   BsPlayCircle,
   BsPauseCircle,
@@ -10,18 +10,19 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 import SettingsDialog from "./Settings";
+import { ConfigContext } from "./Config";
 
 export default function Pomodoro() {
-  const counter_init_vals = {
-    focus: 25 * 60,
-    break: 5 * 60,
-    longbreak: 15 * 60,
-  };
+  // const counter_init_vals = {
+  //   focus: 25 * 60,
+  //   break: 5 * 60,
+  //   longbreak: 15 * 60,
+  // };
+  const [config, setConfig] = useContext(ConfigContext);
 
-  const [counter, setCounter] = useState(counter_init_vals["focus"]);
+  const [counter, setCounter] = useState(config.focus * 60);
   const [timerRunning, setTimerRunning] = useState(false);
   const [timerMode, setTimerMode] = useState("focus"); // focus | break | long-break
-  const [totalSessions, setTotalSessions] = useState(3);
   const [currentSession, setCurrentSession] = useState(1);
   const [showSettingsDialog, setShowSettingsDialog] = useState(false);
 
@@ -65,13 +66,13 @@ export default function Pomodoro() {
     stopTimer();
     setTimerMode("focus");
     setCurrentSession(1);
-    setCounter(counter_init_vals["focus"]);
+    setCounter(config["focus"] * 60);
   };
 
   const nextSession = () => {
     setTimerMode((m) => {
       if (m === "focus") {
-        if (currentSession === totalSessions) {
+        if (currentSession === config.num_sessions) {
           return "longbreak";
         } else {
           return "break";
@@ -91,7 +92,7 @@ export default function Pomodoro() {
     if (firstRender.current) {
       firstRender.current = false;
     } else {
-      setCounter(counter_init_vals[timerMode]);
+      setCounter(config[timerMode] * 60);
       // if (!timerRunning)
       //   startTimer();
     }
@@ -105,12 +106,22 @@ export default function Pomodoro() {
     }
   }, [counter]);
 
+  useEffect(() => {
+    if (timerMode === "focus") {
+      setCounter(config.focus * 60);
+    } else if (timerMode === "break") {
+      setCounter(config.break * 60);
+    } else if (timerMode === "longbreak") {
+      setCounter(config.longbreak * 60);
+    }
+  }, [config]);
+
   return (
     <>
       <div className="timer">
         <CircularProgressbar
           value={counter}
-          maxValue={counter_init_vals[timerMode]}
+          maxValue={config[timerMode] * 60}
           text={`${getMinutes(counter)}:${getSeconds(counter)}`}
           strokeWidth={2}
           counterClockwise={true}
@@ -146,7 +157,10 @@ export default function Pomodoro() {
       </div>
 
       <div className="toolbar-tray">
-        <button className="control-button settings-button" onClick={() => setShowSettingsDialog(true)}>
+        <button
+          className="control-button settings-button"
+          onClick={() => setShowSettingsDialog(true)}
+        >
           <BsFillGearFill className="button-icon" />
         </button>
       </div>
