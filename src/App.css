@@ -31,6 +31,12 @@ body {
   margin: auto;
 }
 
+.mode-display {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 1.2em;
+}
+
 .control-button {
   height: 40px;
   width: 40px;

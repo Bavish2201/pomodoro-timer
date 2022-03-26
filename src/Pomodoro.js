@@ -104,6 +104,7 @@ export default function Pomodoro() {
         nextSession();
       }, 1000);
     }
+    document.title = `${getMinutes(counter)}:${getSeconds(counter)} | Pomodoro`;
   }, [counter]);
 
   useEffect(() => {
@@ -130,6 +131,11 @@ export default function Pomodoro() {
             pathColor: "#5e5e5e",
           })}
         />
+
+      <div className="mode-display">
+        {timerMode === "focus" ? "Focus" : "Break"}
+
+      </div>
       </div>
 
       <div className="timer-controls">
