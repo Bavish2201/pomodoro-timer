@@ -129,6 +129,7 @@ export default function Pomodoro() {
           styles={buildStyles({
             textColor: "#2b2c2c",
             pathColor: "#5e5e5e",
+            pathTransition: 'stroke-dashoffset 1s linear 0s'
           })}
         />
 
