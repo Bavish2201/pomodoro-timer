@@ -6,7 +6,10 @@ import {
   BsArrowCounterclockwise,
   BsFillGearFill,
 } from "react-icons/bs";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import {
+  CircularProgressbarWithChildren,
+  buildStyles,
+} from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 import SettingsDialog from "./Settings";
@@ -120,27 +123,27 @@ export default function Pomodoro() {
   return (
     <>
       <div className="timer">
-        <CircularProgressbar
+        <CircularProgressbarWithChildren
           value={counter}
           maxValue={config[timerMode] * 60}
-          text={`${getMinutes(counter)}:${getSeconds(counter)}`}
           strokeWidth={2}
           counterClockwise={true}
           styles={buildStyles({
             textColor: "#2b2c2c",
             pathColor: "#5e5e5e",
-            pathTransition: 'stroke-dashoffset 1s linear 0s'
+            pathTransition: "stroke-dashoffset 1s linear 0s",
           })}
-        />
-
-      <div className="mode-display">
-        {timerMode === "focus" ? "Focus" : "Break"}
-
-      </div>
+        >
+          <div className="timer-display">
+            {`${getMinutes(counter)}:${getSeconds(counter)}`}
+          </div>
+          <div className="mode-display">
+            {timerMode === "focus" ? "Focus" : "Break"}
+          </div>
+        </CircularProgressbarWithChildren>
       </div>
 
       <div className="timer-controls">
-        
         <button className="control-button" onClick={resetTimer}>
           <BsArrowCounterclockwise className="button-icon" />
         </button>
