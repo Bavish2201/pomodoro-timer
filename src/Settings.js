@@ -15,6 +15,8 @@ export default function SettingsDialog({ closeSettingsDialog }) {
       <div className="dialog-card">
         <p className="dialog-heading">Settings</p>
 
+        <button className="dialog-close-button" onClick={closeSettingsDialog}>x</button>
+
         <div className="input-group">
           <p className="input-label">Focus duration</p>
           <Slider
@@ -75,7 +77,7 @@ export default function SettingsDialog({ closeSettingsDialog }) {
           />
         </div>
 
-        <button onClick={closeSettingsDialog}>Close</button>
+        
       </div>
     </>
   );

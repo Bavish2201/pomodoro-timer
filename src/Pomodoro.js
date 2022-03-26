@@ -133,6 +133,7 @@ export default function Pomodoro() {
       </div>
 
       <div className="timer-controls">
+        
         <button className="control-button" onClick={resetTimer}>
           <BsArrowCounterclockwise className="button-icon" />
         </button>
