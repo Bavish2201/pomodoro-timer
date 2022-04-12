@@ -11,6 +11,7 @@ import {
   buildStyles,
 } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import Notifier from "react-desktop-notification";
 
 import SettingsDialog from "./Settings";
 import { ConfigContext } from "./Config";
@@ -103,6 +104,14 @@ export default function Pomodoro() {
 
   useEffect(() => {
     if (counter === 0) {
+      if (config.show_notification) {
+        if (timerMode === "focus") {
+          Notifier.focus("Take a Break!");
+        } else {
+          Notifier.focus("Get back to Work!");
+        }
+      }
+
       setTimeout(() => {
         nextSession();
       }, 1000);

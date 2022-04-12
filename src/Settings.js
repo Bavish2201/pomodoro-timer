@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import Slider from "@mui/material/Slider";
-
+import Switch from "@mui/material/Switch";
+import FormControlLabel from "@mui/material/FormControlLabel";
 import { ConfigContext } from "./Config";
 
 export default function SettingsDialog({ closeSettingsDialog }) {
-
-  const [config, setConfig] = useContext(ConfigContext)
+  const [config, setConfig] = useContext(ConfigContext);
 
   const oldConfig = config;
 
@@ -15,7 +15,9 @@ export default function SettingsDialog({ closeSettingsDialog }) {
       <div className="dialog-card">
         <p className="dialog-heading">Settings</p>
 
-        <button className="dialog-close-button" onClick={closeSettingsDialog}>x</button>
+        <button className="dialog-close-button" onClick={closeSettingsDialog}>
+          x
+        </button>
 
         <div className="input-group">
           <p className="input-label">Focus duration</p>
@@ -29,10 +31,10 @@ export default function SettingsDialog({ closeSettingsDialog }) {
             marks={[
               { value: 5, label: "5 min" },
               { value: 25, label: "25 min" },
-              { value: 60, label: "60 min"}
+              { value: 60, label: "60 min" },
             ]}
             onChangeCommitted={(e, v) => {
-              setConfig({...config, focus: v});
+              setConfig({ ...config, focus: v });
             }}
           />
         </div>
@@ -49,10 +51,10 @@ export default function SettingsDialog({ closeSettingsDialog }) {
             marks={[
               { value: 1, label: "1 min" },
               { value: 5, label: "5 min" },
-              { value: 15, label: "15 min"}
+              { value: 15, label: "15 min" },
             ]}
             onChangeCommitted={(e, v) => {
-              setConfig({...config, break: v});
+              setConfig({ ...config, break: v });
             }}
           />
         </div>
@@ -69,15 +71,27 @@ export default function SettingsDialog({ closeSettingsDialog }) {
             marks={[
               { value: 5, label: "5 min" },
               { value: 15, label: "15 min" },
-              { value: 30, label: "30 min"}
+              { value: 30, label: "30 min" },
             ]}
             onChangeCommitted={(e, v) => {
-              setConfig({...config, longbreak: v});
+              setConfig({ ...config, longbreak: v });
             }}
           />
         </div>
 
-        
+        <div className="input-group">
+          <FormControlLabel
+            control={
+              <Switch
+                checked={config.show_notification}
+                onChange={(e) => {
+                  setConfig({ ...config, show_notification: e.target.checked });
+                }}
+              />
+            }
+            label="Show Notification"
+          />
+        </div>
       </div>
     </>
   );
