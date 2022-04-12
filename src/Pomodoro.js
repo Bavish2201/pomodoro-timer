@@ -133,10 +133,10 @@ export default function Pomodoro() {
     <>
       <div className="timer">
         <CircularProgressbarWithChildren
-          value={counter}
+          value={config[timerMode]*60 - counter}
           maxValue={config[timerMode] * 60}
           strokeWidth={2}
-          counterClockwise={true}
+          counterClockwise={false}
           styles={buildStyles({
             textColor: "#2b2c2c",
             pathColor: "#5e5e5e",
